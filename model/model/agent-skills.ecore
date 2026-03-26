@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="agentskills" nsURI="ecore://nasdanika.org/models/agent-skills"
+    nsPrefix="org.nasdanika.models.agent.skills">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+    <details key="documentation" value="Ecore model of Agent Skills as defined by the agentskills.io specification.&#xA;A Skill is a reusable, portable unit of expertise stored in a SKILL.md file with YAML front-matter.&#xA;Skills teach AI coding agents how to use specific frameworks, languages, or workflows."/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="Skill">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Represents an agent skill as defined by the agentskills.io specification.&#xA;A skill is a reusable unit of expertise that an AI coding agent can load and apply.&#xA;It is described in a SKILL.md file with a YAML front-matter block followed by markdown body content."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The skill name in lowercase kebab-case (e.g. 'hello-world'). Required. Must be 1-64 characters and match the parent directory name."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A concise description of what the skill does and when an agent should use it. Required. Must be 1-1024 characters."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="compatibility" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Optional compatibility information describing which AI agents or coding environments this skill supports (e.g. 'Designed for Claude Code, Cursor Composer'). Must be 1-500 characters if provided."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="body" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The markdown body content of the SKILL.md file that follows the YAML front-matter. Contains the detailed instructions, examples, and guidance for the agent."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="license" eType="#//License" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The license under which this skill is published. Optional."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="allowedTools" upperBound="-1" eType="#//AllowedTool" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The set of tools the agent is permitted to invoke when executing this skill. Optional, experimental. Corresponds to the 'allowed-tools' front-matter field (space-delimited tool names such as Read, WebFetch, Write, Edit, Bash)."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metadata" upperBound="-1" eType="#//MetadataEntry" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Arbitrary key-value pairs for client-specific or author-defined properties (e.g. version, author, purpose). Corresponds to the 'metadata' front-matter mapping."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="License">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Represents the license under which a skill is published.&#xA;The name should be an SPDX license identifier (e.g. 'MIT', 'Apache-2.0', 'GPL-3.0')."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The SPDX license identifier or license name (e.g. 'MIT', 'Apache-2.0', 'GPL-3.0-only')."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="url" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Optional URL pointing to the full license text (e.g. 'https://opensource.org/licenses/MIT')."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AllowedTool">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Represents a single tool that the agent is allowed to invoke when executing this skill.&#xA;Examples of tool names: Read, Write, Edit, Bash, WebFetch, Search, Grep, Glob."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The name of the tool (e.g. 'Read', 'Write', 'Edit', 'Bash', 'WebFetch')."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MetadataEntry">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A key-value pair representing a single entry in the skill's metadata map.&#xA;Used to store client-specific or author-defined properties such as version, author, or purpose."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The metadata entry key (e.g. 'version', 'author', 'purpose')."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The metadata entry value (e.g. '1.0.0', 'smallnest', 'CRE developer onboarding')."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+</ecore:EPackage>
